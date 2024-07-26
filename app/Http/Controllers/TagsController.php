@@ -26,9 +26,21 @@ class TagsController extends Controller
 
     public function destroy($id)
     {
-        $category = Tags::findorfail($id);
-        $category->delete();
+        $tags = Tags::findorfail($id);
+        $tags->delete();
 
         return redirect()->back()->with('success', 'Category Berhasil Dihapus');
-    }   
+    }
+
+    public function update(Request $request, $id)
+    {
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        // ]);
+
+        $tags = Tags::findOrFail($id);
+        $tags->nama_tags = $request->input('nama_tags');
+        $tags->save();
+        return redirect()->back()->with('success', 'Category Berhasil Dihapus');
+    }
 }

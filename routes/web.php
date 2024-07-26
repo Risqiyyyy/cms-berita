@@ -29,10 +29,11 @@ require __DIR__ . '/auth.php';
 Route::get('/', [RoutingController::class, 'landingpage'])->name('root');
 Route::get('/apps/categori', [CategoryController::class, 'create'])->name('categori.create');
 Route::post('/apps/categori', [CategoryController::class, 'store'])->name('categories.store');
-
+// tags
 Route::get('/apps/tags', [TagsController::class, 'create'])->name('tags.create');
 Route::post('/apps/tags', [TagsController::class, 'store'])->name('tags.store');
 Route::delete('/apps/tags/{id}', [TagsController::class, 'destroy'])->name('tags.destroy');
+Route::put('/apps/tags/{id}', [TagsController::class, 'update'])->name('tags.update');
 
 Route::delete('/apps/categori/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 Route::get('/get-subcategories/{categoryId}', [CategoryController::class, 'getSubcategories']);
