@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Tags;
+use Illuminate\Support\Str;
+
+class TagsController extends Controller
+{
+    public function create()
+    {
+        $tags = Tags::paginate(5);
+        return view('apps.tags', compact('tags'));
+    }
+
+    public function store(Request $request)
+    {
+        $tags = Tags::create([
+            'nama_tags' => $request->nama_tags,
+            'slug' => Str::slug($request->nama_kategori)
+          ]);
+
+        return redirect()->route('tags.create')->with('success', 'Category added successfully');
+    }
+
+    public function destroy($id)
+    {
+        $category = Tags::findorfail($id);
+        $category->delete();
+
+        return redirect()->back()->with('success', 'Category Berhasil Dihapus');
+    }   
+}
