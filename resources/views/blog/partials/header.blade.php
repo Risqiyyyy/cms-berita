@@ -92,8 +92,8 @@
                                         {{$item->nama_kategori}}
                                     </a>
                                     @if($item->subCateg->isNotEmpty())
-                                    <a class="nav-link dropdown-toggle sub-link" href="#" data-toggle="dropdown"></a>
-                                    <ul class="dropdown-menu animate fade-up">
+                                    <a class="nav-link dropdown-toggle sub-link" href="#" data-toggle="dropdown"> </a>
+                                    <ul class="dropdown-menu animate fade-up mx-auto">
                                         @foreach ($item->subCateg as $subItem)
                                         <li><a class="dropdown-item" href="{{ route('bycategory', [$item->slug, $subItem->slug]) }}"> {{ $subItem->nama_sub_kategori }}
                                             </a>
@@ -119,7 +119,7 @@
                                                         <!-- Post Article -->
                                                         <div class="article__entry">
                                                             <div class="article__image">
-                                                                <a href="#">
+                                                                <a href="{{ route('bytitle', $item->slug) }}">
                                                                     <img src="{{ asset('storage/' . $item->gambar) }}"
                                                                         alt="" class="img-fluid">
                                                                 </a>
@@ -139,7 +139,7 @@
                                                                     </li>
                                                                 </ul>
                                                                 <h5>
-                                                                    <a href="#">
+                                                                    <a href="{{ route('bytitle', $item->slug) }}">
                                                                         {{ $item->title }}
                                                                     </a>
                                                                 </h5>

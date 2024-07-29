@@ -12,7 +12,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\AboutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +29,13 @@ require __DIR__ . '/auth.php';
 Route::get('/', [RoutingController::class, 'landingpage'])->name('root');
 Route::get('/apps/categori', [CategoryController::class, 'create'])->name('categori.create');
 Route::post('/apps/categori', [CategoryController::class, 'store'])->name('categories.store');
+Route::put('/apps/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+
+// about
+Route::get('/redaksi', [AboutController::class, 'index'])->name('about.redaksi');
+Route::get('/pedoman-media-siber', [AboutController::class, 'pedomansiber'])->name('about.pedoman-siber');
+
+
 // tags
 Route::get('/apps/tags', [TagsController::class, 'create'])->name('tags.create');
 Route::post('/apps/tags', [TagsController::class, 'store'])->name('tags.store');

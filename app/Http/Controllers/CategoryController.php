@@ -29,26 +29,12 @@ class CategoryController extends Controller
         return redirect()->route('categori.create')->with('success', 'Category added successfully');
     }
 
-    public function edit($id)
-    {
-        $category = Category::findorfail($id);
-        return view('admin.category.edit', compact('category'));
-    }
-
     public function update(Request $request, $id)
     {
-      $this->validate($request, [
-        'name' => 'required|min:3'
-      ]);
-
-      $category_data = [
-        'name' => $request->name,
-        'slug' => Str::slug($request->name)
-      ];
-
-      Category::whereId($id)->update($category_data);
-
-      return redirect()->route('category.index')->with('success', 'Category Berhasil Diupdate');
+        $tags = Category::findOrFail($id);
+        $tags->nama_kategori = $request->input('nama_kategori');
+        $tags->save();
+        return redirect()->back()->with('success', 'Category Berhasil Diupdate');
     }
 
     public function destroy($id)

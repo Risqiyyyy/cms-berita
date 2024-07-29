@@ -63,9 +63,13 @@ class RoutingController extends Controller
 
         $posts = Post::latest()->take(10)->get();
 
-        $populer = Post::with('kategori', 'user')->latest()->take(4)->get(); //belum menambahkan fitur view
+        $terkini = Post::with(['kategori' => function ($query) {
+            $query->inRandomOrder();
+        }, 'user'])->latest()->take(2)->get();
 
-        return view('blog.landing',compact('categories','tags','postAll','postteknology','baca','media','hedline','postlifestyle','news','olahraga','posts','populer'));
+        $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(4)->get();
+
+        return view('blog.landing',compact('categories','tags','postAll','postteknology','baca','media','hedline','postlifestyle','news','olahraga','posts','populer','terkini'));
     }
 
     /**

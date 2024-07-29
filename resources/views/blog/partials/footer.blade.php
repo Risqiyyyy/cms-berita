@@ -27,7 +27,7 @@
                             <div class="widget__footer">
                                 <ul class="list-unstyled option-content is-hidden">
                                     <li>
-                                        <a href="#">Redaksi</a>
+                                        <a href="{{ route('about.redaksi') }}">Redaksi</a>
 
                                     </li>
                                     <li>

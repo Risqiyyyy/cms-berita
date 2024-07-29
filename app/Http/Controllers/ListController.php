@@ -14,8 +14,7 @@ class ListController extends Controller
         $post = Post::with('kategori', 'user')
                      ->where('user_id', $userId)
                      ->latest()
-                     ->get();
-        
+                     ->get();        
         return view('project.list',compact('post'));
     }
 
