@@ -76,24 +76,10 @@
             </li>
 
             <li class="menu-item">
-                <a href="javascript:void(0)" data-fc-type="collapse" class="menu-link">
+                <a href="{{ route('user.index') }}" class="menu-link">
                     <span class="menu-icon"><i class="mgc_user_3_line"></i></span>
                     <span class="menu-text"> Member </span>
-                    <span class="menu-arrow"></span>
                 </a>
-
-                <ul class="sub-menu hidden">
-                    <li class="menu-item">
-                        <a href="{{ route('second', ['member', 'author']) }}" class="menu-link">
-                            <span class="menu-text">Author</span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="{{ route('second', ['member', 'admin']) }}" class="menu-link">
-                            <span class="menu-text">Admin</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
 
             <li class="menu-title">Setting</li>

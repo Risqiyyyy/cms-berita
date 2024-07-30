@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -10,24 +12,21 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return view('member.author');
+    {   
+        $user = User::paginate(10);
+        return view('member.author',compact('user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+         User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+
+        return redirect()->route('user.index')->with('success', 'Users added successfully');
     }
 
     /**
@@ -59,6 +58,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findorfail($id);
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User Berhasil Dihapus');
     }
 }

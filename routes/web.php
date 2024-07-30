@@ -27,9 +27,13 @@ use App\Http\Controllers\AboutController;
 require __DIR__ . '/auth.php';
 
 Route::get('/', [RoutingController::class, 'landingpage'])->name('root');
+// categori
+
 Route::get('/apps/categori', [CategoryController::class, 'create'])->name('categori.create');
 Route::post('/apps/categori', [CategoryController::class, 'store'])->name('categories.store');
 Route::put('/apps/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+Route::delete('/apps/categori/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::get('/get-subcategories/{categoryId}', [CategoryController::class, 'getSubcategories']);
 
 // about
 Route::get('/redaksi', [AboutController::class, 'index'])->name('about.redaksi');
@@ -42,24 +46,24 @@ Route::post('/apps/tags', [TagsController::class, 'store'])->name('tags.store');
 Route::delete('/apps/tags/{id}', [TagsController::class, 'destroy'])->name('tags.destroy');
 Route::put('/apps/tags/{id}', [TagsController::class, 'update'])->name('tags.update');
 
-Route::delete('/apps/categori/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-Route::get('/get-subcategories/{categoryId}', [CategoryController::class, 'getSubcategories']);
 
-
-Route::post('/subcategories/store', [SubCategoryController::class, 'store'])->name('subcategories.store');
-
+// post create
 Route::get('/project/create', [PostController::class, 'create'])->name('post.create');
 Route::post('/project/create', [PostController::class, 'store'])->name('post.store');
-
-
+// post list
 Route::get('/project/list', [ListController::class, 'create'])->name('list.create');
-
+// post detail
 Route::get('/project/detail', [DetailController::class, 'index'])->name('detail.index');
 
 
-Route::get('/home', [DashboardController::class, 'index'])->name('dashboard.index');
+// subcategori
+Route::post('/subcategories/store', [SubCategoryController::class, 'store'])->name('subcategories.store');
 
-Route::get('/member/author', [UserController::class, 'index'])->name('user.index');
+Route::get('/home', [DashboardController::class, 'index'])->name('dashboard.index');
+// member
+Route::get('/member', [UserController::class, 'index'])->name('user.index');
+Route::post('/member', [UserController::class, 'store'])->name('user.store');
+Route::delete('/member/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
 // media
 Route::get('/setting/media', [MediaController::class, 'create'])->name('media.create');
@@ -68,9 +72,6 @@ Route::post('/setting/media', [MediaController::class, 'store'])->name('media.st
 // blog
 Route::get('/category/{categorySlug}/{subCategorySlug?}', [BlogController::class, 'category'])->name('bycategory');
 Route::get('/{slug}', [BlogController::class, 'bytitle'])->name('bytitle');
-
-// Route::get('/categori/{slug}', [BlogController::class, 'category'])->name('bycategory');
-// Route::get('/category/{categorySlug}/{subCategorySlug}', [BlogController::class, 'bysubcategory'])->name('bysubcategory');
 
 
 Route::group(['middleware' => 'auth'], function () {
