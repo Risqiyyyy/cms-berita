@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    public $fillable = ['title','content', 'gambar', 'slug','status', 'start_date', 'start_time', 'keyword', 'description', 'kategori_id', 'user_id','sub_category_id','view'];
+    public $fillable = ['title','content', 'gambar', 'slug','status', 'start_date', 'start_time', 'keyword', 'description', 'kategori_id', 'user_id','sub_category_id'];
     public $timestamps = true;
 
     public function kategori()

@@ -38,9 +38,10 @@
                                 <span class="align-text-bottom">
                                     {{ \Carbon\Carbon::parse($item->created_at)->isoFormat('DD MMMM, YYYY') }}</span>
                             </a>
+
                             <a href="#" class="text-sm">
-                                <i class="mgc_eye_line text-lg me-2"></i>
-                                <span class="align-text-bottom">{{ number_format($item->view, 0, ',', '.'); }}</span>
+                                <i class="mgc_align_justify_line text-lg me-2"></i>
+                                <span class="align-text-bottom">56</span>
                             </a>
                         </div>
                     </div>
@@ -49,5 +50,13 @@
         </div>
         @endforeach
     </div>
+
+    <div class="text-center mt-6">
+        <button type="button" class="btn bg-transparent border-gray-300 dark:border-gray-700">
+            <i class="mgc_loading_4_line me-2 animate-spin"></i>
+            <span>Load More</span>
+        </button>
+    </div>
+
 </div>
 @endsection

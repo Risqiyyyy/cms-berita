@@ -41,7 +41,7 @@ class BlogController extends Controller
 
         $news = $postQuery->latest()->take(5)->get();
         $baca = $postQuery->latest()->take(4)->get();
-        $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(4)->get();
+        $populer = Post::with('kategori', 'user')->latest()->take(3)->get(); //belum menambahkan fitur view
         $post = $postQuery->latest()->get();
     
         return view('blog.categori', compact('media', 'categories', 'tags', 'news', 'baca', 'category', 'subCategory', 'populer','post'));
@@ -50,33 +50,14 @@ class BlogController extends Controller
     public function bytitle($slug){
       $post = Post::where('slug', $slug)->firstOrFail();
       $tagsdetail = $post->tags;
-      $post->increment('view');
       $categories = Category::with('subCategories')->get();
       $baca = Post::with('kategori', 'user')->latest()->take(4)->get();
       $media = Media::all();
       $tags = Tags::get();
       $news = Post::with('kategori', 'user')->latest()->take(5)->get();
-      $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(4)->get();
-      $metakeyword = $post->keyword;
-      $metaDescription = $post->description;
-
-    //   seo
-      $ogTitle = $post->title;
-      $ogDescription = $metaDescription;
-      $ogImage = $post->image_url; // Pastikan ini adalah URL lengkap gambar
-      $ogImageAlt = $post->title;
-      $twitterTitle = $ogTitle;
-      $twitterDescription = $ogDescription;
-      $twitterImage = $ogImage;
-      $twitterImageAlt = $ogImageAlt;
-      $canonicalUrl = url()->current();
-       return view('blog.detail', compact(
-        'post', 'categories', 'baca', 'media', 'news', 'populer', 
-        'tags', 'tagsdetail', 'metaDescription', 'metakeyword', 
-        'ogTitle', 'ogDescription', 'ogImage', 'ogImageAlt', 
-        'twitterTitle', 'twitterDescription', 'twitterImage', 
-        'twitterImageAlt', 'canonicalUrl'
-        ));
+      $populer = Post::with('kategori', 'user')->latest()->take(3)->get(); //belum menambahkan fitur view
+      // dd($tagsdetail);
+      return view('blog.detail',compact('post','categories','baca','media','news','populer','tags','tagsdetail'));
 
     }
 

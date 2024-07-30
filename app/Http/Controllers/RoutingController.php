@@ -40,21 +40,21 @@ class RoutingController extends Controller
         $tags = Tags::get();
         $postAll = Post::with('kategori', 'user')->get();
         $postteknology = Post::with('kategori', 'user')
-        ->whereHas('kategori', function($query) {
-            $query->where('nama_kategori', 'teknologi');
-        })->latest()->take(20)->get();
+            ->whereHas('kategori', function ($query) {
+                $query->where('nama_kategori', 'teknologi');
+            })->latest()->take(20)->get();
 
         $postlifestyle = Post::with('kategori', 'user')
-        ->whereHas('kategori', function($query) {
-            $query->where('nama_kategori', 'lifestyle');
-        })->latest()->take(6)->get();
+            ->whereHas('kategori', function ($query) {
+                $query->where('nama_kategori', 'lifestyle');
+            })->latest()->take(6)->get();
 
         $olahraga = Post::with('kategori', 'user')
-        ->whereHas('kategori', function($query) {
-            $query->where('nama_kategori', 'olahraga');
-        })->latest()->take(4)->get();
+            ->whereHas('kategori', function ($query) {
+                $query->where('nama_kategori', 'olahraga');
+            })->latest()->take(4)->get();
 
-        
+
         $baca = Post::with('kategori', 'user')->latest()->take(4)->get();
         $hedline = Post::with('kategori', 'user')->latest()->take(2)->get();
         $news = Post::with('kategori', 'user')->latest()->take(5)->get();
@@ -63,13 +63,9 @@ class RoutingController extends Controller
 
         $posts = Post::latest()->take(10)->get();
 
-        $terkini = Post::with(['kategori' => function ($query) {
-            $query->inRandomOrder();
-        }, 'user'])->latest()->take(2)->get();
+        $populer = Post::with('kategori', 'user')->latest()->take(4)->get(); //belum menambahkan fitur view
 
-        $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(4)->get();
-
-        return view('blog.landing',compact('categories','tags','postAll','postteknology','baca','media','hedline','postlifestyle','news','olahraga','posts','populer','terkini'));
+        return view('blog.landing', compact('categories', 'tags', 'postAll', 'postteknology', 'baca', 'media', 'hedline', 'postlifestyle', 'news', 'olahraga', 'posts', 'populer'));
     }
 
     /**
@@ -77,50 +73,50 @@ class RoutingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function root(Request $request, $first)
-    // {
+    public function root(Request $request, $first)
+    {
 
-    //     $mode = $request->query('mode');
-    //     $demo = $request->query('demo');
-     
-    //     if ($first == "assets")
-    //         return redirect('home');
+        $mode = $request->query('mode');
+        $demo = $request->query('demo');
 
-    //     return view($first, ['mode' => $mode, 'demo' => $demo]);
-    // }
+        if ($first == "assets")
+            return redirect('home');
+
+        return view($first, ['mode' => $mode, 'demo' => $demo]);
+    }
 
     /**
      * second level route
      */
 
-    // public function secondLevel(Request $request, $first, $second)
-    // {
+    public function secondLevel(Request $request, $first, $second)
+    {
 
-    //     $mode = $request->query('mode');
-    //     $demo = $request->query('demo');
+        $mode = $request->query('mode');
+        $demo = $request->query('demo');
 
-    //     if ($first == "assets")
-    //         return redirect('home');
+        if ($first == "assets")
+            return redirect('home');
 
 
 
-    // return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo]);
-    // }
+        return view($first . '.' . $second, ['mode' => $mode, 'demo' => $demo]);
+    }
 
     /**
      * third level route
      */
 
-    // public function thirdLevel(Request $request, $first, $second, $third)
-    // {
-    //     $mode = $request->query('mode');
-    //     $demo = $request->query('demo');
+    public function thirdLevel(Request $request, $first, $second, $third)
+    {
+        $mode = $request->query('mode');
+        $demo = $request->query('demo');
 
-    //     if ($first == "assets")
-    //         return redirect('home');
+        if ($first == "assets")
+            return redirect('home');
 
-    //     dd($first,$second,$third);
-        
-    //     return view($first . '.' . $second . '.' . $third, ['mode' => $mode, 'demo' => $demo]);
-    // }
+        dd($first, $second, $third);
+
+        return view($first . '.' . $second . '.' . $third, ['mode' => $mode, 'demo' => $demo]);
+    }
 }
