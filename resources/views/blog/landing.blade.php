@@ -203,39 +203,34 @@
                         <h4 class="border_section">Terkini</h4>
                     </div>
                     <div class="row ">
-                        @foreach ($terkini as $kini)
                         <div class="col-sm-12 col-md-6 mb-4">
                             <!-- Post Article -->
                             <div class="card__post ">
                                 <div class="card__post__body card__post__transition">
-                                    <a href="{{ route('bytitle', $kini->slug) }}">
-                                        <img src="{{ asset('storage/' . $kini->gambar) }}" class="img-fluid" alt="">
+                                    <a href="./card-article-detail-v1.html">
+                                        <img src="images/placeholder/600x400.jpg" class="img-fluid" alt="">
                                     </a>
                                     <div class="card__post__content bg__post-cover">
                                         <div class="card__post__category">
-                                            {{ $kini->kategori->nama_kategori }}
+                                            politics
                                         </div>
-                                        @if ($kini->subcategory)
-                                        <div class="card__post__category">
-                                            {{ $kini->subcategory->nama_sub_kategori }}
-                                        </div>
-                                        @endif    
                                         <div class="card__post__title">
                                             <h5>
-                                                <a href="{{ route('bytitle', $kini->slug) }}">{{ $kini->title }}</a>
-                                            </h5> 
+                                                <a href="./card-article-detail-v1.html">
+                                                    Barack Obama and Family Visit borobudur temple enjoy holiday
+                                                    indonesia.</a>
+                                            </h5>
                                         </div>
                                         <div class="card__post__author-info">
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
-                                                    {{-- {{ route('byname', $kini->slug) }} --}}
-                                                    <a href="">
-                                                        By {{ $kini->user->name}}
+                                                    <a href="./card-article-detail-v1.html">
+                                                        by david hall
                                                     </a>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <span>
-                                                        {{ \Carbon\Carbon::parse($kini->created_at)->isoFormat('DD MMMM, YYYY') }}
+                                                        Descember 09, 2016
                                                     </span>
                                                 </li>
                                             </ul>
@@ -245,18 +240,53 @@
 
                             </div>
                         </div>
-                        @endforeach
+                        <div class="col-sm-12 col-md-6 mb-4">
+                            <!-- Post Article -->
+                            <div class="card__post ">
+                                <div class="card__post__body card__post__transition">
+                                    <a href="./card-article-detail-v1.html">
+                                        <img src="images/placeholder/600x400.jpg" class="img-fluid" alt="">
+                                    </a>
+                                    <div class="card__post__content bg__post-cover">
+                                        <div class="card__post__category">
+                                            politics
+                                        </div>
+                                        <div class="card__post__title">
+                                            <h5>
+                                                <a href="./card-article-detail-v1.html">
+                                                    Barack Obama and Family Visit borobudur temple enjoy holiday
+                                                    indonesia.</a>
+                                            </h5>
+                                        </div>
+                                        <div class="card__post__author-info">
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a href="./card-article-detail-v1.html">
+                                                        by david hall
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <span>
+                                                        Descember 09, 2016
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
+                    <div class="row ">
                         <div class="col-sm-12 col-md-6">
-                            @foreach ($terkini as $kini)
                             <div class="wrapp__list__article-responsive">
                                 <div class="mb-3">
                                     <!-- Post Article -->
                                     <div class="card__post card__post-list">
                                         <div class="image-sm">
-                                            <a href="{{ route('bytitle', $kini->slug) }}">
-                                                <img src="{{ asset('storage/' . $kini->gambar) }}" class="img-fluid" alt="">
+                                            <a href="./card-article-detail-v1.html">
+                                                <img src="images/placeholder/500x400.jpg" class="img-fluid" alt="">
                                             </a>
                                         </div>
                                         <div class="card__post__body ">
@@ -266,12 +296,12 @@
                                                     <ul class="list-inline">
                                                         <li class="list-inline-item">
                                                             <span class="text-primary">
-                                                                By {{ $kini->user->name}}
+                                                                by david hall
                                                             </span>
                                                         </li>
                                                         <li class="list-inline-item">
                                                             <span class="text-dark text-capitalize">
-                                                                {{ \Carbon\Carbon::parse($kini->created_at)->isoFormat('DD MMMM, YYYY') }}
+                                                                descember 09, 2016
                                                             </span>
                                                         </li>
 
@@ -279,8 +309,8 @@
                                                 </div>
                                                 <div class="card__post__title">
                                                     <h6>
-                                                        <a href="{{ route('bytitle', $kini->slug) }}">
-                                                            {{ $kini->title }}
+                                                        <a href="./card-article-detail-v1.html">
+                                                            6 Best Tips for Building a Good Shipping Boat
                                                         </a>
                                                     </h6>
                                                 </div>
@@ -289,51 +319,122 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-                        </div>
-                        <div class="col-sm-12 col-md-6 ">
                             <div class="wrapp__list__article-responsive">
-                                @foreach ($terkini as $kini)
                                 <div class="mb-3">
-                                    <div class="mb-3">
-                                        <!-- Post Article -->
-                                        <div class="card__post card__post-list">
-                                            <div class="image-sm">
-                                                <a href="{{ route('bytitle', $kini->slug) }}">
-                                                    <img src="{{ asset('storage/' . $kini->gambar) }}" class="img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="card__post__body ">
-                                                <div class="card__post__content">
-    
-                                                    <div class="card__post__author-info mb-2">
-                                                        <ul class="list-inline">
-                                                            <li class="list-inline-item">
-                                                                <span class="text-primary">
-                                                                    By {{ $kini->user->name}}
-                                                                </span>
-                                                            </li>
-                                                            <li class="list-inline-item">
-                                                                <span class="text-dark text-capitalize">
-                                                                    {{ \Carbon\Carbon::parse($kini->created_at)->isoFormat('DD MMMM, YYYY') }}
-                                                                </span>
-                                                            </li>
-    
-                                                        </ul>
-                                                    </div>
-                                                    <div class="card__post__title">
-                                                        <h6>
-                                                            <a href="{{ route('bytitle', $kini->slug) }}">
-                                                                {{ $kini->title }}
-                                                            </a>
-                                                        </h6>
-                                                    </div>
+                                    <!-- Post Article -->
+                                    <div class="card__post card__post-list">
+                                        <div class="image-sm">
+                                            <a href="./card-article-detail-v1.html">
+                                                <img src="images/placeholder/500x400.jpg" class="img-fluid" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="card__post__body ">
+                                            <div class="card__post__content">
+
+                                                <div class="card__post__author-info mb-2">
+                                                    <ul class="list-inline">
+                                                        <li class="list-inline-item">
+                                                            <span class="text-primary">
+                                                                by david hall
+                                                            </span>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <span class="text-dark text-capitalize">
+                                                                descember 09, 2016
+                                                            </span>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="card__post__title">
+                                                    <h6>
+                                                        <a href="./card-article-detail-v1.html">
+                                                            6 Best Tips for Building a Good Shipping Boat
+                                                        </a>
+                                                    </h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 ">
+                            <div class="wrapp__list__article-responsive">
+                                <div class="mb-3">
+                                    <!-- Post Article -->
+                                    <div class="card__post card__post-list">
+                                        <div class="image-sm">
+                                            <a href="./card-article-detail-v1.html">
+                                                <img src="images/placeholder/500x400.jpg" class="img-fluid" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="card__post__body ">
+                                            <div class="card__post__content">
+
+                                                <div class="card__post__author-info mb-2">
+                                                    <ul class="list-inline">
+                                                        <li class="list-inline-item">
+                                                            <span class="text-primary">
+                                                                by david hall
+                                                            </span>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <span class="text-dark text-capitalize">
+                                                                descember 09, 2016
+                                                            </span>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="card__post__title">
+                                                    <h6>
+                                                        <a href="./card-article-detail-v1.html">
+                                                            6 Best Tips for Building a Good Shipping Boat
+                                                        </a>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <!-- Post Article -->
+                                    <div class="card__post card__post-list">
+                                        <div class="image-sm">
+                                            <a href="./card-article-detail-v1.html">
+                                                <img src="images/placeholder/500x400.jpg" class="img-fluid" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="card__post__body ">
+                                            <div class="card__post__content">
+
+                                                <div class="card__post__author-info mb-2">
+                                                    <ul class="list-inline">
+                                                        <li class="list-inline-item">
+                                                            <span class="text-primary">
+                                                                by david hall
+                                                            </span>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <span class="text-dark text-capitalize">
+                                                                descember 09, 2016
+                                                            </span>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="card__post__title">
+                                                    <h6>
+                                                        <a href="./card-article-detail-v1.html">
+                                                            6 Best Tips for Building a Good Shipping Boat
+                                                        </a>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -397,7 +498,7 @@
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <span class="text-primary">
-                                            By {{ $tek->user->name}}
+                                            by {{ $tek->user->name}}
                                         </span>
                                     </li>
                                     <li class="list-inline-item">

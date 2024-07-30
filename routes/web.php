@@ -11,8 +11,9 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SettingColorController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AboutController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +32,7 @@ Route::get('/', [RoutingController::class, 'landingpage'])->name('root');
 
 Route::get('/apps/categori', [CategoryController::class, 'create'])->name('categori.create');
 Route::post('/apps/categori', [CategoryController::class, 'store'])->name('categories.store');
+
 Route::put('/apps/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
 Route::delete('/apps/categori/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 Route::get('/get-subcategories/{categoryId}', [CategoryController::class, 'getSubcategories']);
@@ -38,7 +40,6 @@ Route::get('/get-subcategories/{categoryId}', [CategoryController::class, 'getSu
 // about
 Route::get('/redaksi', [AboutController::class, 'index'])->name('about.redaksi');
 Route::get('/pedoman-media-siber', [AboutController::class, 'pedomansiber'])->name('about.pedoman-siber');
-
 
 // tags
 Route::get('/apps/tags', [TagsController::class, 'create'])->name('tags.create');
@@ -64,6 +65,9 @@ Route::get('/home', [DashboardController::class, 'index'])->name('dashboard.inde
 Route::get('/member', [UserController::class, 'index'])->name('user.index');
 Route::post('/member', [UserController::class, 'store'])->name('user.store');
 Route::delete('/member/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+Route::get('/settingColor/edit', [SettingColorController::class, 'edit'])->name('settingColor.edit');
+Route::get('/settingColor/edit/{settingColor}', [SettingColorController::class, ''])->name('settingColor.edit');
 
 // media
 Route::get('/setting/media', [MediaController::class, 'create'])->name('media.create');

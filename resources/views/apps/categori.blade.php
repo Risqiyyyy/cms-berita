@@ -170,14 +170,15 @@
                         </button>
                     </div>
                     <div class="p-6 space-y-6">
-                        <form action="{{ route('categories.update', $item->id) }}" method="post">
+                        {{-- {{ route('categories.update', $item->id) }} --}}
+                        <form action="" method="post">
                             @csrf
                             @method('put')
                             <div class="mb-4">
                                 <label for="name"
                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category
                                     Name</label>
-                                <input type="text" name="nama_kategori" id="name" value="{{ $item->nama_kategori }}"
+                                <input type="text" name="name" id="name" value="{{ $item->nama_kategori }}"
                                     class="w-full px-3 py-2 mt-1 text-gray-900 border rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     required>
                             </div>
