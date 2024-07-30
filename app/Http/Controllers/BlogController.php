@@ -49,6 +49,7 @@ class BlogController extends Controller
     
     public function bytitle($slug){
       $post = Post::where('slug', $slug)->firstOrFail();
+      $post->increment('view');
       $tagsdetail = $post->tags;
       $categories = Category::with('subCategories')->get();
       $baca = Post::with('kategori', 'user')->latest()->take(4)->get();
