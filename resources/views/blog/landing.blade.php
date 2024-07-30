@@ -452,14 +452,14 @@
                                         {{ $i+1 }}
                                     </span>
                                 </div>
-                                <a href="#" class="category">
+                                <a href="{{ route('bycategory', $item->kategori->slug) }}" class="category">
                                     {{ $item->kategori->nama_kategori }}
                                 </a>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
 
                                         <h5>
-                                            <a href="#">
+                                            <a href="{{ route('bytitle', $it->slug) }}">
                                                 {{ $item->title }}
                                             </a>
                                         </h5>

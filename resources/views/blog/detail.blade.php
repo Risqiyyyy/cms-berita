@@ -48,7 +48,12 @@
                         <div class="wrap__article-detail-content">
                             <div class="total-views">
                                 <div class="total-views-read">
-                                    15.k
+                                    @php
+                                        $views = $post->view;
+                                        $formattedViews = ($views >= 1000000) ? number_format($views / 1000000, 1) . 'M' :
+                                                        (($views >= 1000) ? number_format($views / 1000, 1) . 'k' : $views);
+                                    @endphp
+                                    {{ $formattedViews }}
                                     <span>
                                         views
                                     </span>
@@ -56,38 +61,24 @@
                                 <ul class="list-inline">
                                     <span class="share">share on:</span>
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o facebook" href="#">
+                                        <a class="btn btn-social-o facebook" id="share-facebook" href="#">
                                             <i class="fa fa-facebook-f"></i>
                                             <span>facebook</span>
                                         </a>
 
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o twitter" href="#">
-                                            <i class="fa fa-twitter"></i>
+                                        <a class="btn btn-social-o text-black x-twitter" id="share-twitter" href="#">
+                                            <i class="fa fa-x-twitter"></i>
                                             <span>twitter</span>
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o whatsapp" href="#">
+                                        <a class="btn btn-social-o whatsapp" id="share-whatsapp" href="#">
                                             <i class="fa fa-whatsapp"></i>
                                             <span>whatsapp</span>
                                         </a>
                                     </li>
-                                    <li class="list-inline-item">
-                                        <a class="btn btn-social-o telegram" href="#">
-                                            <i class="fa fa-telegram"></i>
-                                            <span>telegram</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="list-inline-item">
-                                        <a class="btn btn-linkedin-o linkedin" href="#">
-                                            <i class="fa fa-linkedin"></i>
-                                            <span>linkedin</span>
-                                        </a>
-                                    </li>
-
                                 </ul>
                             </div>
                             <p class="has-drop-cap-fluid">
@@ -261,6 +252,15 @@
             </div>
         </div>
     </section>
+
+    <script>
+        var currentUrl = window.location.href;
+    
+        document.getElementById('share-facebook').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(currentUrl);
+        document.getElementById('share-twitter').href = 'https://x.com/intent/tweet?url=' + encodeURIComponent(currentUrl);
+        document.getElementById('share-whatsapp').href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(currentUrl);
+    </script>
+
 @include('blog.partials.footer')
 @endsection
     

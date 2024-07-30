@@ -82,13 +82,6 @@
                 </a>
             </li>
 
-            <li class="menu-item">
-                <a href="{{ route('second', ['settingColor', 'edit']) }}" class="menu-link">
-                    <span class="menu-icon"><i class="mgc_settings_1_line"></i></span>
-                    <span class="menu-text"> Setting Color Website </span>
-                </a>
-            </li>
-
             <li class="menu-title">Setting</li>
 
             <li class="menu-item">
@@ -98,6 +91,12 @@
                 </a>
             </li>
 
+            <li class="menu-item">
+                <a href="{{ route('second', ['settingColor', 'edit']) }}" class="menu-link">
+                    <span class="menu-icon"><i class="mgc_settings_1_line"></i></span>
+                    <span class="menu-text"> Color Website </span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

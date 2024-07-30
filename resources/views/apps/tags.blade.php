@@ -132,9 +132,10 @@
       </tbody>
   </table>
 
-    {{-- <div class="mt-4">
-        {{ $category->links('pagination::tailwind') }}
-    </div> --}}
+    <nav aria-label="Page navigation example" class="p-3">
+        {{ $tags->links() }}
+    </nav>
+
 </div>
 
 

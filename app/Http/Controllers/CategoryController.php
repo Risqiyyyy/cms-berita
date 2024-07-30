@@ -21,6 +21,7 @@ class CategoryController extends Controller
         // $request->validate([
         //     'name' => 'required|string|max:255',
         // ]);
+        
         $category = Category::create([
             'nama_kategori' => $request->nama_kategori,
             'slug' => Str::slug($request->nama_kategori)

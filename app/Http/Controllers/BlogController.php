@@ -41,7 +41,7 @@ class BlogController extends Controller
 
         $news = $postQuery->latest()->take(5)->get();
         $baca = $postQuery->latest()->take(4)->get();
-        $populer = Post::with('kategori', 'user')->latest()->take(3)->get(); //belum menambahkan fitur view
+        $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(3)->get();
         $post = $postQuery->latest()->get();
     
         return view('blog.categori', compact('media', 'categories', 'tags', 'news', 'baca', 'category', 'subCategory', 'populer','post'));
@@ -56,8 +56,7 @@ class BlogController extends Controller
       $media = Media::all();
       $tags = Tags::get();
       $news = Post::with('kategori', 'user')->latest()->take(5)->get();
-      $populer = Post::with('kategori', 'user')->latest()->take(3)->get(); //belum menambahkan fitur view
-      // dd($tagsdetail);
+      $populer = Post::with('kategori', 'user') ->orderBy('view', 'desc')->take(3)->get();
       return view('blog.detail',compact('post','categories','baca','media','news','populer','tags','tagsdetail'));
 
     }

@@ -27,11 +27,11 @@
                             <div class="widget__footer">
                                 <ul class="list-unstyled option-content is-hidden">
                                     <li>
-                                        <a href="#">Redaksi</a>
+                                        <a href="{{ route('about.redaksi') }}">Redaksi</a>
 
                                     </li>
                                     <li>
-                                        <a href="#">Pedoman Media Siber</a>
+                                        <a href="{{ route('about.pedoman-siber') }}">Pedoman Media Siber</a>
                                     </li>
                                     <li>
                                         <a href="#">Standar Perlindungan Profesi Wartawan</a>

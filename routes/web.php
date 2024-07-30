@@ -13,6 +13,7 @@ use App\Http\Controllers\DetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingColorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,10 @@ Route::get('/project/create', [PostController::class, 'create'])->name('post.cre
 Route::post('/project/create', [PostController::class, 'store'])->name('post.store');
 // post list
 Route::get('/project/list', [ListController::class, 'create'])->name('list.create');
+Route::get('/project/list/{id}', [ListController::class, 'edit'])->name('list.edit');
+Route::put('/project/list/{id}', [ListController::class, 'update'])->name('list.update');
+Route::delete('/project/list/{id}', [ListController::class, 'destroy'])->name('list.destroy');
+
 // post detail
 Route::get('/project/detail', [DetailController::class, 'index'])->name('detail.index');
 
