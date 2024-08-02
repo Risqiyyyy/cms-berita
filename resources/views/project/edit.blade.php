@@ -15,6 +15,17 @@
         height: 100%;
         object-fit: cover; 
     }
+    #tags-container {
+    max-height: calc(15 * 2.5rem);
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    }
+
+    .tag-item {
+        margin-bottom: 0.5rem;
+    }
 </style>
 @section('content')
 <form action="{{ route('list.update', $post->id) }}" method="POST" enctype="multipart/form-data" id="contentForm" class="grid lg:grid-cols-4 gap-6">
@@ -61,17 +72,20 @@
 
         <div class="card p-6">
             <div class="flex flex-col gap-3">
-                <div class="">
-                    <label for="tags" class="mb-2 block">Tags</label>
-                    @foreach ($tags as $tag)
-                        <div class="flex items-center">
+                <div>
+                    <label for="tag-search" class="mb-2 block">Search Tags</label>
+                    <input type="text" id="tag-search" class="form-input" placeholder="Search tags...">
+                </div>
+                <div id="tags-container">
+                    @foreach ($sortedTags as $tag)
+                        <div class="tag-item flex items-center">
                             <input type="checkbox" id="tag-{{ $tag->id }}" name="tags[]" value="{{ $tag->id }}" class="form-checkbox" {{ in_array($tag->id, $post->tags->pluck('id')->toArray()) ? 'checked' : '' }}>
                             <label for="tag-{{ $tag->id }}" class="ml-2">{{ $tag->nama_tags }}</label>
                         </div>
                     @endforeach
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 
     <!-- Content Information Section -->
@@ -206,6 +220,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<script>
+    document.getElementById('tag-search').addEventListener('keyup', function() {
+        var searchQuery = this.value.toLowerCase();
+        var tags = document.querySelectorAll('#tags-container .tag-item');
+
+        tags.forEach(function(tag) {
+            var tagName = tag.querySelector('label').innerText.toLowerCase();
+            if (tagName.includes(searchQuery)) {
+                tag.style.display = 'flex';
+            } else {
+                tag.style.display = 'none';
+            }
+        });
+    });
+</script>
 @endsection
 
 @section('script')
@@ -213,7 +243,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var quill = new Quill('#snow-editor', {
-            theme: 'snow'
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['bold', 'italic', 'underline'],
+                    ['image', 'code-block']
+                ]
+            }
         });
 
         var existingContent = document.getElementById('editor-content').value;
@@ -222,6 +260,24 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('contentForm').addEventListener('submit', function() {
             var editorContent = quill.root.innerHTML;
             document.getElementById('editor-content').value = editorContent;
+        });
+
+        quill.root.addEventListener('paste', function(e) {
+            var clipboardData = e.clipboardData || window.clipboardData;
+            if (clipboardData && clipboardData.items) {
+                for (var i = 0; i < clipboardData.items.length; i++) {
+                    if (clipboardData.items[i].type.indexOf('image') !== -1) {
+                        var file = clipboardData.items[i].getAsFile();
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            var url = event.target.result;
+                            var range = quill.getSelection();
+                            quill.insertEmbed(range.index, 'image', url);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            }
         });
     });
 </script>

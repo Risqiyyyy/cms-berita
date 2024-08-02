@@ -31,7 +31,7 @@ class BlogController extends Controller
     
         $media = Media::all();
         $categories = Category::with('subCategories')->get();
-        $tags = Tags::get();
+        $tags = Tags::paginate(20);
     
         $postQuery = Post::with('kategori', 'user')->where('kategori_id', $category->id);
     
@@ -49,17 +49,38 @@ class BlogController extends Controller
     
     public function bytitle($slug){
       $post = Post::where('slug', $slug)->firstOrFail();
+
+      if ($post->gambar) {
+          $post->gambar = explode('|', $post->gambar);
+        }
+      // $post->content = preg_replace('/\[caption[^\]]*\](.*?)\[\/caption\]/s', '$1', $post->content);
       $post->increment('view');
       $tagsdetail = $post->tags;
+    //   dd($tagsdetail);
       $categories = Category::with('subCategories')->get();
       $baca = Post::with('kategori', 'user')->latest()->take(4)->get();
       $media = Media::all();
-      $tags = Tags::get();
+      $tags = Tags::paginate(20);
       $news = Post::with('kategori', 'user')->latest()->take(5)->get();
       $populer = Post::with('kategori', 'user') ->orderBy('view', 'desc')->take(3)->get();
       return view('blog.detail',compact('post','categories','baca','media','news','populer','tags','tagsdetail'));
 
     }
+
+    public function bytags($slug) {
+      $tag = Tags::where('slug', $slug)->firstOrFail();
+      $post = $tag->posts()->paginate(15); 
+      $categories = Category::with('subCategories')->get();
+      $baca = Post::with('kategori', 'user')->latest()->take(4)->get();
+      $media = Media::all();
+      $tags = Tags::paginate(20);
+      $news = Post::with('kategori', 'user')->latest()->take(5)->get();
+      $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(3)->get();
+      return view('blog.tags', compact('post', 'categories', 'baca', 'media', 'news', 'populer', 'tag','tags'));
+  }
+  
+
+    
 
     // public function bysubcategory($categorySlug, $subCategorySlug)
     // {

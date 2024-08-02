@@ -88,7 +88,7 @@
                 <ul class="list-inline">
                     @foreach ($tags as $t)
                     <li class="list-inline-item">
-                        <a href="#">
+                        <a href="{{ route('bytags', $t->slug) }}">
                             #{{ $t->nama_tags }}
                         </a>
                     </li>

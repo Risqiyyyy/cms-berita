@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->longText('content');
-            $table->string('gambar')->nullable();
+            $table->text('gambar')->nullable();
             $table->string('slug')->nullable();
             $table->enum('status', ['private', 'schedule', 'public']);
             $table->date('start_date')->nullable();

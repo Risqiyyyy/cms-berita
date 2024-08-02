@@ -20,6 +20,18 @@
         height: 100%;
         object-fit: cover; 
     }
+    #tags-container {
+    max-height: calc(15 * 2.5rem);
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    }
+
+    .tag-item {
+        margin-bottom: 0.5rem;
+    }
+    
 </style>
 @section('content')
 <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data" id="contentForm" class="grid lg:grid-cols-4 gap-6">
@@ -62,17 +74,20 @@
 
         <div class="card p-6">
             <div class="flex flex-col gap-3">
-                <div class="">
-                    <label for="tags" class="mb-2 block">Tags</label>
+                <div>
+                    <label for="tag-search" class="mb-2 block">Search Tags</label>
+                    <input type="text" id="tag-search" class="form-input" placeholder="Search tags...">
+                </div>
+                <div id="tags-container">
                     @foreach ($tags as $tag)
-                        <div class="flex items-center">
+                        <div class="tag-item flex items-center">
                             <input type="checkbox" id="tag-{{ $tag->id }}" name="tags[]" value="{{ $tag->id }}" class="form-checkbox">
                             <label for="tag-{{ $tag->id }}" class="ml-2">{{ $tag->nama_tags }}</label>
                         </div>
                     @endforeach
                 </div>
             </div>
-        </div>        
+        </div>   
     </div>
 
     <!-- Content Information Section -->
@@ -213,7 +228,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-    
+<script>
+    document.getElementById('tag-search').addEventListener('keyup', function() {
+        var searchQuery = this.value.toLowerCase();
+        var tags = document.querySelectorAll('#tags-container .tag-item');
+
+        tags.forEach(function(tag) {
+            var tagName = tag.querySelector('label').innerText.toLowerCase();
+            if (tagName.includes(searchQuery)) {
+                tag.style.display = 'flex';
+            } else {
+                tag.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 <script>
     var quill = new Quill('#snow-editor', {

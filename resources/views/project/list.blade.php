@@ -3,9 +3,21 @@
 
 @section('content')
 <div class="flex flex-auto flex-col">
-    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <!-- Search Input -->
+    <div class="flex items-center p-4 bg-gray-100">
+        <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search..." 
+            class="w-64 px-2 py-1 border rounded-md mr-2" 
+            aria-label="Search"
+        >
+    </div>
+
+    <!-- Posts Grid -->
+    <div id="postContainer" class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
         @foreach ($post as $item)
-        <div class="card">
+        <div class="card" data-title="{{ $item->title }}" data-content="{{ $item->content }}">
             <div class="card-header">
                 <div class="flex justify-between items-center">
                     <h5 class="card-title">{{ $item->kategori->nama_kategori}}</h5>
@@ -87,6 +99,10 @@
         </div>
         @endforeach
     </div>
-
+    
+    <!-- Pagination -->
+    <div class="mt-4 flex justify-start">
+        {{ $post->links('pagination::tailwind') }}
+    </div>
 </div>
 @endsection

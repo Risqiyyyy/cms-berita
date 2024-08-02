@@ -37,21 +37,21 @@ class RoutingController extends Controller
     public function landingPage()
     {
         $categories = Category::with('subCategories')->get();
-        $tags = Tags::get();
+        $tags = Tags::paginate(20);
         $postAll = Post::with('kategori', 'user')->get();
         $postteknology = Post::with('kategori', 'user')
             ->whereHas('kategori', function ($query) {
-                $query->where('nama_kategori', 'teknologi');
+                $query->where('nama_kategori', 'Teknologi');
             })->latest()->take(20)->get();
 
         $postlifestyle = Post::with('kategori', 'user')
             ->whereHas('kategori', function ($query) {
-                $query->where('nama_kategori', 'lifestyle');
+                $query->where('nama_kategori', 'Lifestyle');
             })->latest()->take(6)->get();
 
         $olahraga = Post::with('kategori', 'user')
             ->whereHas('kategori', function ($query) {
-                $query->where('nama_kategori', 'olahraga');
+                $query->where('nama_kategori', 'Olahraga');
             })->latest()->take(4)->get();
 
 
@@ -64,8 +64,13 @@ class RoutingController extends Controller
         $posts = Post::latest()->take(10)->get();
 
         $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(4)->get();
+
+        $latestPosts = Post::where('status', 'public')
+                        ->orderBy('created_at', 'desc')
+                        ->take(6)
+                        ->get();
         
-        return view('blog.landing', compact('categories', 'tags', 'postAll', 'postteknology', 'baca', 'media', 'hedline', 'postlifestyle', 'news', 'olahraga', 'posts', 'populer'));
+        return view('blog.landing', compact('categories', 'tags', 'postAll', 'postteknology', 'baca', 'media', 'hedline', 'postlifestyle', 'news', 'olahraga', 'posts', 'populer','latestPosts'));
     }
 
     /**

@@ -81,6 +81,7 @@ Route::post('/setting/media', [MediaController::class, 'store'])->name('media.st
 // blog
 Route::get('/category/{categorySlug}/{subCategorySlug?}', [BlogController::class, 'category'])->name('bycategory');
 Route::get('/{slug}', [BlogController::class, 'bytitle'])->name('bytitle');
+Route::get('/tags/{slug}', [BlogController::class, 'bytags'])->name('bytags');
 
 
 Route::group(['middleware' => 'auth'], function () {

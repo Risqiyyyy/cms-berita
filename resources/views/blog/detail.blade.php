@@ -21,8 +21,13 @@
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <figure class="image-profile">
-                                        <img src="{{ asset('/images/Logo-FTNews-New-dark3.png')}}" alt="">
-                                    </figure>
+                                        @if(!empty($post->gambar) && is_array($post->gambar))
+                                            @foreach($post->gambar as $gambar)
+                                                <p>{{ asset('storage/' . $gambar) }}</p>
+                                                <img src="{{ asset('storage/' . $gambar) }}" alt="Gambar" class="img-fluid">
+                                            @endforeach
+                                        @endif
+                                    </figure>                                   
                                 </li>
                                 <li class="list-inline-item">
                                     <span>
@@ -42,22 +47,15 @@
 
                         <div class="wrap__article-detail-image mt-4">
                             <figure>
-                                <img src="{{ asset('storage/' . $post->gambar) }}" alt="" class="img-fluid">
+                                @if(!empty($post->gambar) && is_array($post->gambar))
+                                @foreach($post->gambar as $gambar)
+                                    <img src="{{ asset('storage/' . $gambar) }}" alt="Gambar" class="img-fluid">
+                                @endforeach
+                            @endif
                             </figure>
                         </div>
                         <div class="wrap__article-detail-content">
                             <div class="total-views">
-                                <div class="total-views-read">
-                                    @php
-                                        $views = $post->view;
-                                        $formattedViews = ($views >= 1000000) ? number_format($views / 1000000, 1) . 'M' :
-                                                        (($views >= 1000) ? number_format($views / 1000, 1) . 'k' : $views);
-                                    @endphp
-                                    {{ $formattedViews }}
-                                    <span>
-                                        views
-                                    </span>
-                                </div>
                                 <ul class="list-inline">
                                     <span class="share">share on:</span>
                                     <li class="list-inline-item">
@@ -82,8 +80,8 @@
                                 </ul>
                             </div>
                             <p class="has-drop-cap-fluid">
-                                {!! $post->content !!}
-                            </p>
+                                {!! preg_replace('/\[caption[^\]]*\](.*?)\[\/caption\]/s', '$1', $post->content) !!}
+                            </p>                      
                         </div>
 
 
@@ -100,7 +98,7 @@
                             </li>
                             @foreach ($tagsdetail as $tagdet)
                             <li class="list-inline-item">
-                                <a href="#">
+                                <a href="{{ route('bytags', $tagdet->slug) }}">
                                     #{{ $tagdet->nama_tags}}
                                 </a>
                             </li>
@@ -121,7 +119,11 @@
                                     <div class="card__post card__post-list">
                                         <div class="image-sm">
                                             <a href="{{ route('bytitle', $item->slug) }}">
-                                                <img src="{{ asset('storage/' . $item->gambar) }}" class="img-fluid" alt="">
+                                                @if(!empty($item->gambar) && is_array($item->gambar))
+                                                @foreach($item->gambar as $gambar)
+                                                    <img src="{{ asset('storage/' . $gambar) }}" alt="Gambar" class="img-fluid">
+                                                @endforeach
+                                            @endif
                                             </a>
                                         </div>
                                         <div class="card__post__body ">
@@ -212,7 +214,7 @@
                                 <ul class="list-inline">
                                     @foreach ($tags as $t)
                                     <li class="list-inline-item">
-                                        <a href="#">
+                                        <a href="{{ route('bytags', $t->slug) }}">
                                             #{{ $t->nama_tags }}
                                         </a>
                                     </li>
@@ -226,13 +228,13 @@
                             <!-- Form Subscribe -->
                             <div class="widget__form-subscribe bg__card-shadow">
                                 <h6>
-                                    The most important world news and events of the day.
+                                    Subscribe
                                 </h6>
-                                <p><small>Get magzrenvi daily newsletter on your inbox.</small></p>
+                                <p><small>Get ftnews.co.id daily newsletter on your inbox.</small></p>
                                 <div class="input-group ">
                                     <input type="text" class="form-control" placeholder="Your email address">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">sign up</button>
+                                        <button class="btn btn-primary" type="button">I want in</button>
                                     </div>
                                 </div>
                             </div>

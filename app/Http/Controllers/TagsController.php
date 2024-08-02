@@ -10,7 +10,7 @@ class TagsController extends Controller
 {
     public function create()
     {
-        $tags = Tags::paginate(5);
+        $tags = Tags::paginate(20);
         return view('apps.tags', compact('tags'));
     }
 

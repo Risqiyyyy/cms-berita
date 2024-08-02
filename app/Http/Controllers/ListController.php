@@ -14,9 +14,9 @@ class ListController extends Controller
     {
         $userId = Auth::id();
         $post = Post::with(['kategori.subCateg', 'user'])
-                     ->where('user_id', $userId)
-                     ->latest()
-                     ->get();
+            ->where('user_id', $userId)
+            ->latest()
+            ->paginate(15);
         // dd($post);
         return view('project.list',compact('post'));
     }
@@ -41,11 +41,20 @@ class ListController extends Controller
      */
     public function edit(string $id)
     {
-        $post = Post::findorfail($id);
+        $post = Post::findOrFail($id);
         $categori = Category::with('subCategories')->get();
+        
         $tags = Tags::all();
-        return view('project.edit',compact('categori','tags','post'));
+    
+        $selectedTags = $post->tags->pluck('id')->toArray();
+    
+        $sortedTags = $tags->sortByDesc(function ($tag) use ($selectedTags) {
+            return in_array($tag->id, $selectedTags) ? 1 : 0;
+        });
+    
+        return view('project.edit', compact('categori', 'sortedTags', 'post'));
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -65,6 +74,26 @@ class ListController extends Controller
             'keyword' => $request->input('keyword'),
             'description' => $request->input('description'),
         ]);
+
+        if ($request->hasFile('images')) {
+            $oldImages = explode(',', $post->gambar);
+            foreach ($oldImages as $oldImage) {
+                $oldImagePath = public_path('storage/images/content/' . $oldImage);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+    
+            $newImagePaths = [];
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '-' . $image->getClientOriginalName();
+                $path = $image->storeAs('public/images/content', $filename);
+                $newImagePaths[] = str_replace('public/', '', $path);
+            }
+    
+            $post->gambar = implode(',', $newImagePaths);
+            $post->save();
+        }
 
         if ($request->has('tags')) {
             $post->tags()->sync($request->input('tags'));
