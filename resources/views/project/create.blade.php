@@ -61,7 +61,7 @@
 
                 <div class="">
                     <label for="select-label-subcategory" class="mb-2 block">Subcategory</label>
-                    <select id="select-label-subcategory" name="subcategory_id" class="form-select" required disabled>
+                    <select id="select-label-subcategory" name="subcategory_id" class="form-select">
                         <option value="">Select Subcategory</option>
                         <!-- Subcategories will be populated via JavaScript -->
                     </select>
@@ -186,48 +186,51 @@
 </form>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const categorySelect = document.getElementById('select-label-category');
-    const subcategorySelect = document.getElementById('select-label-subcategory');
-
-    categorySelect.addEventListener('change', function() {
-        const categoryId = this.value;
-
-        subcategorySelect.innerHTML = '<option selected>Loading...</option>';
-        subcategorySelect.disabled = true;
-
-        if (categoryId) {
-            fetch(`/get-subcategories/${categoryId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok: ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    subcategorySelect.innerHTML = '<option selected>Select a subcategory</option>';
-                    if (data.length > 0) {
-                        data.forEach(subcategory => {
-                            const option = document.createElement('option');
-                            option.value = subcategory.id;
-                            option.textContent = subcategory.nama_sub_kategori;
-                            subcategorySelect.appendChild(option);
-                        });
-                        subcategorySelect.disabled = false;
-                    } else {
-                        subcategorySelect.innerHTML = '<option selected>No subcategories found</option>';
-                    }
-                })
-                .catch(error => {
-                    subcategorySelect.innerHTML = '<option selected>No subcategories found</option>';
-                });
-        } else {
-            subcategorySelect.innerHTML = '<option selected>Select a category first</option>';
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        const categorySelect = document.getElementById('select-label-category');
+        const subcategorySelect = document.getElementById('select-label-subcategory');
+    
+        categorySelect.addEventListener('change', function() {
+            const categoryId = this.value;
+    
+            subcategorySelect.innerHTML = '<option value="" selected>Loading...</option>';
+            subcategorySelect.disabled = true;
+    
+            if (categoryId) {
+                fetch(`/get-subcategories/${categoryId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok: ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        subcategorySelect.innerHTML = '<option value="" selected>Select a subcategory</option>';
+                        if (data.length > 0) {
+                            data.forEach(subcategory => {
+                                const option = document.createElement('option');
+                                option.value = subcategory.id; // Ensure ID is numeric
+                                option.textContent = subcategory.nama_sub_kategori;
+                                subcategorySelect.appendChild(option);
+                            });
+                            subcategorySelect.disabled = false;
+                        } else {
+                            subcategorySelect.innerHTML = '<option value="" selected>No subcategories found</option>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching subcategories:', error);
+                        subcategorySelect.innerHTML = '<option value="" selected>No subcategories found</option>';
+                    });
+            } else {
+                subcategorySelect.innerHTML = '<option value="" selected>Select a category first</option>';
+            }
+        });
     });
-});
-
 </script>
+    
+    
+    
 <script>
     document.getElementById('tag-search').addEventListener('keyup', function() {
         var searchQuery = this.value.toLowerCase();
@@ -260,9 +263,17 @@ document.addEventListener('DOMContentLoaded', function() {
 @section('script')
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script>
-    var quill = new Quill('#snow-editor', {
-        theme: 'snow'
-    });
+   var quill = new Quill('#snow-editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['bold', 'italic', 'underline'],
+                    ['image', 'code-block']
+                ]
+            }
+        });
 
     document.getElementById('contentForm').addEventListener('submit', function() {
         var editorContent = document.querySelector('#snow-editor .ql-editor').innerHTML;

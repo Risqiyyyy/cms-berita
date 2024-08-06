@@ -20,14 +20,14 @@
                         <div class="wrap__article-detail-info">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <figure class="image-profile">
+                                    {{-- <figure class="image-profile">
                                         @if(!empty($post->gambar) && is_array($post->gambar))
-                                            @foreach($post->gambar as $gambar)
-                                                <p>{{ asset('storage/' . $gambar) }}</p>
-                                                <img src="{{ asset('storage/' . $gambar) }}" alt="Gambar" class="img-fluid">
-                                            @endforeach
-                                        @endif
-                                    </figure>                                   
+                                        @php
+                                            $firstImage = $post->gambar[0];
+                                        @endphp
+                                        <img src="{{ asset('storage/' . $firstImage) }}" alt="Gambar" class="img-fluid">
+                                    @endif                             
+                                    </figure>                                    --}}
                                 </li>
                                 <li class="list-inline-item">
                                     <span>
@@ -48,14 +48,15 @@
                         <div class="wrap__article-detail-image mt-4">
                             <figure>
                                 @if(!empty($post->gambar) && is_array($post->gambar))
-                                @foreach($post->gambar as $gambar)
-                                    <img src="{{ asset('storage/' . $gambar) }}" alt="Gambar" class="img-fluid">
-                                @endforeach
-                            @endif
+                                        @php
+                                            $firstImage = $post->gambar[0];
+                                        @endphp
+                                        <img src="{{ asset('storage/' . $firstImage) }}" alt="Gambar" class="img-fluid">
+                                    @endif    
                             </figure>
                         </div>
                         <div class="wrap__article-detail-content">
-                            <div class="total-views">
+                            <div class="total-views d-flex justify-content-center">
                                 <ul class="list-inline">
                                     <span class="share">share on:</span>
                                     <li class="list-inline-item">
@@ -66,7 +67,7 @@
 
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o text-black x-twitter" id="share-twitter" href="#">
+                                        <a class="btn btn-social-o x-twitter" id="share-twitter" href="#">
                                             <i class="fa fa-x-twitter"></i>
                                             <span>twitter</span>
                                         </a>
@@ -119,11 +120,9 @@
                                     <div class="card__post card__post-list">
                                         <div class="image-sm">
                                             <a href="{{ route('bytitle', $item->slug) }}">
-                                                @if(!empty($item->gambar) && is_array($item->gambar))
-                                                @foreach($item->gambar as $gambar)
-                                                    <img src="{{ asset('storage/' . $gambar) }}" alt="Gambar" class="img-fluid">
-                                                @endforeach
-                                            @endif
+                                                @if(!empty($item->gambar) && is_array($item->gambar) && count($item->gambar) > 0)
+                                                <img src="{{ asset('storage/' . $item->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                                @endif 
                                             </a>
                                         </div>
                                         <div class="card__post__body ">
@@ -255,6 +254,13 @@
         </div>
     </section>
 
+
+        <!-- TikTok embed script -->
+        <script async src="https://www.tiktok.com/embed.js"></script>
+        <!-- Instagram embed script -->
+        <script async src="//www.instagram.com/embed.js"></script>
+        <!-- Twitter embed script -->
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script>
         var currentUrl = window.location.href;
     

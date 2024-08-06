@@ -39,43 +39,78 @@ class BlogController extends Controller
             $postQuery->where('sub_category_id', $subCategory->id);
         }
 
-        $news = $postQuery->latest()->take(5)->get();
-        $baca = $postQuery->latest()->take(4)->get();
+        $news = $postQuery->orderBy('created_at', 'desc')->latest()->take(5)->get();
+        $baca = $postQuery->orderBy('created_at', 'desc')->latest()->take(4)->get();
         $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(3)->get();
-        $post = $postQuery->latest()->get();
+        $post = $postQuery->orderBy('created_at', 'desc')->latest()->paginate(15);
+
+        $allPosts = collect([$baca, $news, $populer, $post->items()])->flatten();
+
+        foreach ($allPosts as $singlePost) {
+            if ($singlePost->gambar) {
+                $singlePost->gambar = explode('|', $singlePost->gambar);
+            }
+        }
     
         return view('blog.categori', compact('media', 'categories', 'tags', 'news', 'baca', 'category', 'subCategory', 'populer','post'));
     }
     
     public function bytitle($slug){
       $post = Post::where('slug', $slug)->firstOrFail();
+      $patterns = [
+        // YouTube
+        '/\[embed\](https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([^\s&]+))\[\/embed\]/i' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/$2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+        // TikTok
+        '/\[embed\](https?:\/\/(?:www\.)?tiktok\.com\/@[\w\-]+\/video\/(\d+))\[\/embed\]/i' => '<blockquote class="tiktok-embed" cite="$1" data-video-id="$2" style="max-width: 605px;min-width: 325px;"> <section> </section> </blockquote><script async src="https://www.tiktok.com/embed.js"></script>',
+        // Instagram
+        '/\[embed\](https?:\/\/(?:www\.)?instagram\.com\/p\/([^\s\/]+))\[\/embed\]/i' => '<blockquote class="instagram-media" data-instgrm-permalink="$1" data-instgrm-version="12" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote><script async src="//www.instagram.com/embed.js"></script>',
+        // Twitter
+        '/\[embed\](https?:\/\/(?:www\.)?twitter\.com\/[^\s]+\/status\/(\d+))\[\/embed\]/i' => '<blockquote class="twitter-tweet"><a href="$1"></a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>',
+        // Facebook
+        '/\[embed\](https?:\/\/(?:www\.)?facebook\.com\/[^\s]+\/posts\/(\d+))\[\/embed\]/i' => '<iframe src="https://www.facebook.com/plugins/post.php?href=$1&width=500" width="500" height="684" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="encrypted-media"></iframe>',
+      ];
 
-      if ($post->gambar) {
-          $post->gambar = explode('|', $post->gambar);
-        }
-      // $post->content = preg_replace('/\[caption[^\]]*\](.*?)\[\/caption\]/s', '$1', $post->content);
+      foreach ($patterns as $pattern => $replacement) {
+          $post->content = preg_replace($pattern, $replacement, $post->content);
+      }
+
       $post->increment('view');
       $tagsdetail = $post->tags;
-    //   dd($tagsdetail);
+
       $categories = Category::with('subCategories')->get();
-      $baca = Post::with('kategori', 'user')->latest()->take(4)->get();
+      $baca = Post::with('kategori', 'user')->orderBy('created_at', 'desc')->latest()->take(4)->get();
       $media = Media::all();
       $tags = Tags::paginate(20);
-      $news = Post::with('kategori', 'user')->latest()->take(5)->get();
-      $populer = Post::with('kategori', 'user') ->orderBy('view', 'desc')->take(3)->get();
+      $news = Post::with('kategori', 'user')->orderBy('created_at', 'desc')->latest()->take(5)->get();
+      $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(3)->get();
+
+      $allPosts = collect([$post, $baca, $news, $populer])->flatten();
+      foreach ($allPosts as $singlePost) {
+          if ($singlePost->gambar) {
+              $singlePost->gambar = explode('|', $singlePost->gambar);
+          }
+      }
       return view('blog.detail',compact('post','categories','baca','media','news','populer','tags','tagsdetail'));
 
     }
 
     public function bytags($slug) {
       $tag = Tags::where('slug', $slug)->firstOrFail();
-      $post = $tag->posts()->paginate(15); 
+      $post = $tag->posts()->orderBy('created_at', 'desc')->paginate(15);
       $categories = Category::with('subCategories')->get();
-      $baca = Post::with('kategori', 'user')->latest()->take(4)->get();
+      $baca = Post::with('kategori', 'user')->orderBy('created_at', 'desc')->latest()->take(4)->get();
       $media = Media::all();
       $tags = Tags::paginate(20);
-      $news = Post::with('kategori', 'user')->latest()->take(5)->get();
+      $news = Post::with('kategori', 'user')->orderBy('created_at', 'desc')->latest()->take(5)->get();
       $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(3)->get();
+
+      $allPosts = collect([$baca, $news, $populer, $post->items()])->flatten();
+      foreach ($allPosts as $singlePost) {
+          if ($singlePost->gambar) {
+              $singlePost->gambar = explode('|', $singlePost->gambar);
+          }
+      }
+
       return view('blog.tags', compact('post', 'categories', 'baca', 'media', 'news', 'populer', 'tag','tags'));
   }
   

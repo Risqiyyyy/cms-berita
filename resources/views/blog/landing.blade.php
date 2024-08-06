@@ -14,11 +14,9 @@
                         <div class="card__post card__post-list">
                             <div class="image-sm">
                                 <a href="{{ route('bytitle', $it->slug) }}">
-                                    @if(!empty($it->gambar) && is_array($it->gambar))
-                                    @foreach($it->gambar as $gambar)
-                                        <img src="{{ asset('storage/' . $gambar) }}" alt="Gambar" class="img-fluid">
-                                    @endforeach
-                                     @endif
+                                    @if(!empty($it->gambar) && is_array($it->gambar) && count($it->gambar) > 0)
+                                    <img src="{{ asset('storage/' . $it->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                    @endif 
                                 </a>
                             </div>
                             <div class="card__post__body ">
@@ -71,7 +69,9 @@
                             <div class="card__post">
                                 <div class="card__post__body">
                                     <a href="{{ route('bytitle', $all->slug) }}">
-                                        <img src="{{ asset('storage/' . $all->gambar) }}" alt="Gambar">
+                                    @if(!empty($all->gambar) && is_array($all->gambar) && count($all->gambar) > 0)
+                                    <img src="{{ asset('storage/' . $all->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                    @endif 
                                     </a>
                                     <div class="card__post__content bg__post-cover">
                                         <div class="card__post__category">
@@ -111,7 +111,9 @@
                         <div class="card__post ">
                             <div class="card__post__body card__post__transition">
                                 <a href="{{ route('bytitle', $it->slug) }}">
-                                    <img src="{{ asset('storage/' . $item->gambar) }}" class="img-fluid" alt="">
+                                    @if(!empty($item->gambar) && is_array($item->gambar) && count($item->gambar) > 0)
+                                    <img src="{{ asset('storage/' . $item->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                    @endif 
                                 </a>
                                 <div class="card__post__content bg__post-cover">
                                     <div class="card__post__category">
@@ -160,7 +162,9 @@
                             <div class="article__entry">
                                 <div class="article__image">
                                     <a href="{{ route('bytitle', $item->slug) }}">
-                                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="" class="img-fluid">
+                                        @if(!empty($item->gambar) && is_array($item->gambar) && count($item->gambar) > 0)
+                                        <img src="{{ asset('storage/' . $item->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                        @endif 
                                     </a>
                                 </div>
                                 <div class="article__content">
@@ -212,7 +216,9 @@
                             <div class="card__post">
                                 <div class="card__post__body card__post__transition">
                                     <a href="{{ route('bytitle', $post->slug) }}">
-                                        <img src="{{ asset('storage/' . $post->gambar) }}" class="img-fluid" alt="{{ $post->title }}">
+                                        @if(!empty($post->gambar) && is_array($post->gambar) && count($post->gambar) > 0)
+                                        <img src="{{ asset('storage/' . $post->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                        @endif 
                                     </a>
                                     <div class="card__post__content bg__post-cover">
                                         <div class="card__post__category">
@@ -254,7 +260,9 @@
                                     <div class="card__post card__post-list">
                                         <div class="image-sm">
                                             <a href="{{ route('bytitle', $late->slug) }}">
-                                                <img src="{{ asset('storage/' . $late->gambar) }}" class="img-fluid" alt="{{ $late->title }}">
+                                                @if(!empty($late->gambar) && is_array($late->gambar) && count($late->gambar) > 0)
+                                                <img src="{{ asset('storage/' . $late->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                                @endif 
                                             </a>
                                         </div>
                                         <div class="card__post__body ">
@@ -339,7 +347,9 @@
                         <div class="article__entry">
                             <div class="article__image">
                                 <a href="{{ route('bytitle', $tek->slug) }}">
-                                    <img src="{{ asset('storage/' . $tek->gambar) }}" alt="" class="img-fluid">
+                                    @if(!empty($tek->gambar) && is_array($tek->gambar) && count($tek->gambar) > 0)
+                                    <img src="{{ asset('storage/' . $tek->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                    @endif
                                 </a>
                             </div>
                             <div class="article__content">
@@ -371,6 +381,10 @@
     </div>
     <!-- End Popular news category -->
 
+    <div class="text-center m-3">
+        <a href="{{ route('bycategory', 'teknologi') }}" class="btn btn-outline-primary mb-4 text-capitalize">Read More teknologi</a>
+    </div>
+
 
     <!-- Popular news category -->
     <div class="mt-4">
@@ -386,8 +400,9 @@
                                     <div class="article__image">
                                         {{-- {{ route('post.show', $post->id) }} --}}
                                         <a href="{{ route('bytitle', $post->slug) }}">
-                                            <img src="{{ asset('storage/' . $post->gambar) }}"
-                                                alt="{{ $post->title }}" class="img-fluid">
+                                            @if(!empty($post->gambar) && is_array($post->gambar) && count($post->gambar) > 0)
+                                            <img src="{{ asset('storage/' . $post->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                            @endif
                                         </a>
                                     </div>
                                     <div class="article__content">
@@ -414,7 +429,9 @@
                             </div>
                             @endforeach
                         </div>
-
+                        <div class="text-center m-3">
+                            <a href="{{ route('bycategory', 'lifestyle') }}" class="btn btn-outline-primary mb-4 text-capitalize">Read More Lifestyle</a>
+                        </div>
                     </aside>
                     <aside class="wrapper__list__article">
                         <h4 class="border_section">Olahraga</h4>
@@ -427,8 +444,11 @@
                                     <div class="col-md-5">
                                         <div class="card__post__transition">
                                             <a href="{{ route('bytitle', $item->slug) }}">
-                                                <img src="{{ asset('storage/' . $item->gambar) }}"
-                                                    class=" {{ $item->title }}" alt="">
+                                                @if(!empty($item->gambar) && is_array($item->gambar) && count($item->gambar) > 0)
+                                                <img src="{{ asset('storage/' . $item->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                                @endif
+                                                {{-- <img src="{{ asset('storage/' . $item->gambar) }}"
+                                                    class=" {{ $item->title }}" alt=""> --}}
                                             </a>
                                         </div>
                                     </div>
@@ -481,6 +501,9 @@
                                 </div>
                             </div>
                             @endforeach
+                        </div>
+                        <div class="text-center m-3">
+                            <a href="{{ route('bycategory', 'olahraga') }}" class="btn btn-outline-primary mb-4 text-capitalize">Read More Olahraga</a>
                         </div>
                     </aside>
                 </div>
@@ -576,7 +599,7 @@
                         </aside>
                     </div>
                 </div>
-                <div class="mx-auto">
+                {{-- <div class="mx-auto">
                     <!-- Pagination -->
                     <div class="pagination-area">
                         <div class="pagination wow fadeIn animated" data-wow-duration="2s" data-wow-delay="0.5s"
@@ -605,7 +628,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="clearfix"></div>
             </div>

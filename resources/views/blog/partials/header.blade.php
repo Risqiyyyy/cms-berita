@@ -76,7 +76,7 @@
                             <span class="navbar-toggler-icon"></span>
                         </div>
                     </div>
-                    <figure class="mb-0 mx-auto">
+                    <figure class="mb-0 mx-auto" style="width: 100px;height: 50px;">
                         <a href="{{ url('/') }}">
                             <img src="{{ asset('/images/Logo-FTNews-New-dark3.png')}}" alt="" class="img-fluid logo">
                         </a>
@@ -120,8 +120,9 @@
                                                         <div class="article__entry">
                                                             <div class="article__image">
                                                                 <a href="{{ route('bytitle', $item->slug) }}">
-                                                                    <img src="{{ asset('storage/' . $item->gambar) }}"
-                                                                        alt="" class="img-fluid">
+                                                                    @if(!empty($item->gambar) && is_array($item->gambar) && count($item->gambar) > 0)
+                                                                    <img src="{{ asset('storage/' . $item->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                                                    @endif 
                                                                 </a>
                                                             </div>
                                                             <div class="article__content">
@@ -219,14 +220,14 @@
                     <div class="modal-body">
                         <nav class="list-group list-group-flush">
                             <ul class="navbar-nav ">
-                                <li class="nav-item"><a class="nav-link  text-dark" href="#"> Home </a></li>
+                                <li class="nav-item"><a class="nav-link  text-dark" href="{{ url('/') }}"> Home </a></li>
                                 @foreach ($categories as $item)
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle  text-dark" href="#" data-toggle="dropdown">
+                                    <a class="nav-link dropdown-toggle  text-dark" href="{{ route('bycategory', $item->slug) }}" data-toggle="dropdown">
                                         {{ $item->nama_kategori}} </a>
                                     <ul class="dropdown-menu animate fade-up">
-                                        @foreach ($item->subCategories as $subItem)
-                                        <li><a class="dropdown-item" href="#"> {{ $subItem->nama_sub_kategori }} </a>
+                                        @foreach ($item->subCateg as $subItem)
+                                        <li><a class="dropdown-item" href="{{ route('bycategory', [$item->slug, $subItem->slug]) }}"> {{ $subItem->nama_sub_kategori }} </a>
                                         </li>
                                         @endforeach
                                     </ul>

@@ -45,7 +45,7 @@ class PostController extends Controller
             'description' => $request->description,
             'user_id' => $user_id,
             'slug' => Str::slug($request->title), 
-            'sub_category_id' => $request->subcategory_id
+            'sub_category_id' => $request->subcategory_id ?: null
         ]);
 
 

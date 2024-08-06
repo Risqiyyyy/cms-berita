@@ -34,10 +34,10 @@
                                         <a href="{{ route('about.pedoman-siber') }}">Pedoman Media Siber</a>
                                     </li>
                                     <li>
-                                        <a href="#">Standar Perlindungan Profesi Wartawan</a>
+                                        <a href="{{ route('about.standar_perlindungan') }}">Standar Perlindungan Profesi Wartawan</a>
                                     </li>
                                     <li>
-                                        <a href="#">Kode Etik Jurnalistik</a>
+                                        <a href="{{ route('about.etik_jurnalistik') }}">Kode Etik Jurnalistik</a>
                                     </li>
                                 </ul>
                             </div>

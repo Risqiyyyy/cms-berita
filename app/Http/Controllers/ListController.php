@@ -10,14 +10,19 @@ use App\Models\Tags;
 
 class ListController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
         $userId = Auth::id();
-        $post = Post::with(['kategori.subCateg', 'user'])
-            ->where('user_id', $userId)
-            ->latest()
-            ->paginate(15);
-        // dd($post);
+        $search = $request->input('search');
+
+        $query = Post::with(['kategori.subCateg', 'user'])
+            ->where('user_id', $userId);
+    
+        if ($search) {
+            $query->where('title', 'like', "%{$search}%");
+        }
+    
+        $post = $query->latest()->paginate(15);
         return view('project.list',compact('post'));
     }
 

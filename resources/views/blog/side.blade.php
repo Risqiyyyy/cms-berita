@@ -9,7 +9,9 @@
                     <div class="card__post card__post-list">
                         <div class="image-sm">
                             <a href="{{ route('bytitle', $item->slug) }}">
-                                <img src="{{ asset('storage/' . $item->gambar) }}" class="img-fluid" alt="">
+                                @if(!empty($item->gambar) && is_array($item->gambar) && count($item->gambar) > 0)
+                                <img src="{{ asset('storage/' . $item->gambar[0]) }}" alt="Gambar" class="img-fluid">
+                                @endif 
                             </a>
                         </div>
                         <div class="card__post__body ">

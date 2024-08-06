@@ -4,15 +4,21 @@
 @section('content')
 <div class="flex flex-auto flex-col">
     <!-- Search Input -->
-    <div class="flex items-center p-4 bg-gray-100">
+    <form action="{{ route('list.create') }}" method="GET" class="flex items-center p-4 bg-gray-100">
         <input 
             type="text" 
+            name="search" 
             id="searchInput" 
             placeholder="Search..." 
             class="w-64 px-2 py-1 border rounded-md mr-2" 
             aria-label="Search"
+            value="{{ request()->input('search') }}"
         >
-    </div>
+        <button type="submit" class="px-4 py-1 border rounded-md bg-blue-500 text-white">
+            Search
+        </button>
+    </form>
+    
 
     <!-- Posts Grid -->
     <div id="postContainer" class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">

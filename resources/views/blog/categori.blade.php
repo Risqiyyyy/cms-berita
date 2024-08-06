@@ -44,13 +44,15 @@
                             <div class="col-md-5">
                                 <div class="card__post__transition">
                                     <a href="{{ route('bytitle', $item->slug) }}">
-                                        <img src="{{ asset('storage/' . $item->gambar) }}" class="img-fluid w-100" alt="">
+                                    @if(!empty($item->gambar) && is_array($item->gambar) && count($item->gambar) > 0)
+                                        <img src="{{ asset('storage/' . $item->gambar[0]) }}" alt="Gambar" class="img-fluid w-100">
+                                    @endif 
                                     </a>
                                 </div>
                             </div>
                             <div class="col-md-7 my-auto pl-0">
-                                <div class="card__post__body ">
-                                    <div class="card__post__content  ">
+                                <div class="card__post__body">
+                                    <div class="card__post__content">
                                         <div class="card__post__category">
                                             {{ $item->kategori->nama_kategori }}
                                         </div>
@@ -59,7 +61,7 @@
                                             {{ $item->subcategory->nama_sub_kategori }}
                                         </div>
                                         @endif                                    
-                                        <div class="card__post__author-info mb-2">
+                                        <div class="card__post__author-info mb-2 mt-3">
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <span class="text-primary">
@@ -85,7 +87,7 @@
                                             strip_tags($item->content));
                                             $words = explode(' ', $content);
                                             if (count($words) > 10) {
-                                            $truncated = implode(' ', array_slice($words, 0, 50)) . '...';
+                                            $truncated = implode(' ', array_slice($words, 0, 20)) . '...';
                                             } else {
                                             $truncated = $content;
                                             }
@@ -110,33 +112,9 @@
         </div>
 
         <!-- Pagination -->
-        <div class="pagination-area">
-            <div class="pagination wow fadeIn animated" data-wow-duration="2s" data-wow-delay="0.5s"
-                style="visibility: visible; animation-duration: 2s; animation-delay: 0.5s; animation-name: fadeIn;">
-                <a href="#">
-                    «
-                </a>
-                <a href="#">
-                    1
-                </a>
-                <a class="active" href="#">
-                    2
-                </a>
-                <a href="#">
-                    3
-                </a>
-                <a href="#">
-                    4
-                </a>
-                <a href="#">
-                    5
-                </a>
-
-                <a href="#">
-                    »
-                </a>
-            </div>
-        </div>
+        <div class="pagination-area mt-3">
+            {{ $post->onEachSide(2)->links('blog.partials.paginate') }}
+        </div> 
 
     </div>
 </section>

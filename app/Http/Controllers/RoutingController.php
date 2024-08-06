@@ -38,30 +38,30 @@ class RoutingController extends Controller
     {
         $categories = Category::with('subCategories')->get();
         $tags = Tags::paginate(20);
-        $postAll = Post::with('kategori', 'user')->get();
-        $postteknology = Post::with('kategori', 'user')
-            ->whereHas('kategori', function ($query) {
-                $query->where('nama_kategori', 'Teknologi');
-            })->latest()->take(20)->get();
+        $postAll = Post::with('kategori', 'user')->orderBy('created_at', 'desc')->take(20)->get();
 
+        $postteknology = Post::with('kategori', 'user')
+        ->whereHas('kategori', function ($query) {
+            $query->where('nama_kategori', 'Teknologi');
+        })->orderBy('created_at', 'desc')->latest()->take(20)->get();
         $postlifestyle = Post::with('kategori', 'user')
             ->whereHas('kategori', function ($query) {
                 $query->where('nama_kategori', 'Lifestyle');
-            })->latest()->take(6)->get();
+            })->orderBy('created_at', 'desc')->latest()->take(6)->get();
 
         $olahraga = Post::with('kategori', 'user')
             ->whereHas('kategori', function ($query) {
                 $query->where('nama_kategori', 'Olahraga');
-            })->latest()->take(4)->get();
+            })->orderBy('created_at', 'desc')->latest()->take(4)->get();
+        
 
-
-        $baca = Post::with('kategori', 'user')->latest()->take(4)->get();
-        $hedline = Post::with('kategori', 'user')->latest()->take(2)->get();
-        $news = Post::with('kategori', 'user')->latest()->take(5)->get();
+        $baca = Post::with('kategori', 'user')->orderBy('created_at', 'desc')->latest()->take(4)->get();
+        $hedline = Post::with('kategori', 'user')->orderBy('created_at', 'desc')->latest()->take(2)->get();
+        $news = Post::with('kategori', 'user')->orderBy('created_at', 'desc')->latest()->take(5)->get();
 
         $media = Media::all();
 
-        $posts = Post::latest()->take(10)->get();
+        $posts = Post::orderBy('created_at', 'desc')->latest()->take(10)->get();
 
         $populer = Post::with('kategori', 'user')->orderBy('view', 'desc')->take(4)->get();
 
@@ -69,7 +69,17 @@ class RoutingController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->take(6)
                         ->get();
-        
+        $collections = [$postAll, $postteknology, $postlifestyle, $olahraga, $baca, $hedline, $news, $posts, $populer, $latestPosts];
+
+        foreach ($collections as $collection) {
+            foreach ($collection as $post) {
+                if ($post->gambar) {
+                    $post->gambar = explode('|', $post->gambar);
+                }
+            }
+        }
+
+
         return view('blog.landing', compact('categories', 'tags', 'postAll', 'postteknology', 'baca', 'media', 'hedline', 'postlifestyle', 'news', 'olahraga', 'posts', 'populer','latestPosts'));
     }
 
