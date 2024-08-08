@@ -28,6 +28,8 @@ class PostSeeder extends Seeder
             $categoryName = trim($categories[0]);
             $subCategoryName = isset($categories[1]) ? trim($categories[1]) : null;
 
+            // dd($categoryName, $subCategoryName);
+
             $category = Category::where('nama_kategori', $categoryName)->first();
             $subCategory = $subCategoryName ? SubCategory::where('nama_sub_kategori', $subCategoryName)->first() : null;
 

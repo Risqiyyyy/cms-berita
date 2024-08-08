@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="widget__footer">
+                            <div class="widget__footer d-none d-md-block">
                                 <div class="dropdown-footer">
                                     <h3 class="footer-title">
                                         Tautan
@@ -64,7 +64,7 @@
                                                 {{ $item->nama_kategori }}
                                                 <span class="fa fa-angle-down"></span>
                                             </h6>
-                                
+                        
                                             <ul class="list-unstyled option-content is-hidden">
                                                 @foreach ($item->subCategories as $subItem)
                                                 <li>
@@ -80,14 +80,15 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        
+                        <div class="col-md-3 d-none d-md-block">
                             <div class="widget__footer">
                                 <div class="dropdown-footer">
                                     <h4 class="footer-title">
                                         Baca Juga
                                         <span class="fa fa-angle-down"></span>
                                     </h4>
-
+                        
                                 </div>
                                 <ul class="list-unstyled option-content is-hidden">
                                     @foreach ($baca as $item)
@@ -98,6 +99,7 @@
                                 </ul>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
                 <div class="mt-4">

@@ -54,14 +54,14 @@
     <!-- Profile Dropdown Button -->
     <div class="relative">
         <button data-fc-type="dropdown" data-fc-placement="bottom-end" type="button" class="nav-link">
-            <img src="/images/users/user-6.jpg" alt="user-image" class="rounded-full h-10">
+            <img src="/images/users/profile.png" alt="user-image" class="rounded-full h-10">
         </button>
         <div class="fc-dropdown fc-dropdown-open:opacity-100 hidden opacity-0 w-44 z-50 transition-[margin,opacity] duration-300 mt-2 bg-white shadow-lg border rounded-lg p-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="pages-gallery.html">
+            {{-- <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="pages-gallery.html">
                 <i class="mgc_profile_fill  me-2"></i>
                 <span>Profile</span>
-            </a>
-            <hr class="my-2 -mx-2 border-gray-200 dark:border-gray-700">
+            </a> --}}
+            {{-- <hr class="my-2 -mx-2 border-gray-200 dark:border-gray-700"> --}}
             <form action="{{ route('logout') }}" method="POST" class="inline">
                 @csrf
                 <button type="submit" class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300">

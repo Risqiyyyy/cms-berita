@@ -27,7 +27,7 @@
             <li class="menu-title">Menu</li>
 
             <li class="menu-item">
-                <a href="{{ route('any', 'home') }}" class="menu-link">
+                <a href="{{ route('dashboard.index') }}" class="menu-link">
                     <span class="menu-icon"><i class="mgc_home_3_line"></i></span>
                     <span class="menu-text"> Dashboard </span>
                 </a>
@@ -74,7 +74,7 @@
                     </li>
                 </ul>
             </li>
-
+            @if(auth()->user() && auth()->user()->hasRole('admin'))
             <li class="menu-item">
                 <a href="{{ route('user.index') }}" class="menu-link">
                     <span class="menu-icon"><i class="mgc_user_3_line"></i></span>
@@ -97,6 +97,7 @@
                     <span class="menu-text"> Color Website </span>
                 </a>
             </li>
+            @endif
         </ul>
     </div>
 </div>

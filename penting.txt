@@ -1,0 +1,5 @@
+comand untuk embed sosial media
+-> php artisan embed:social
+
+
+php artisan db:seed --class=PostSeeder

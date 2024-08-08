@@ -78,7 +78,7 @@
                                             strip_tags($item->content));
                                             $words = explode(' ', $content);
                                             if (count($words) > 10) {
-                                            $truncated = implode(' ', array_slice($words, 0, 50)) . '...';
+                                            $truncated = implode(' ', array_slice($words, 0, 20)) . '...';
                                             } else {
                                             $truncated = $content;
                                             }
