@@ -76,6 +76,7 @@
                             <span class="navbar-toggler-icon"></span>
                         </div>
                     </div>
+                    
                     <figure class="mb-0 mx-auto" style="width: 100px;height: 50px;">
                         <a href="{{ url('/') }}">
                             <img src="{{ asset('/images/Logo-FTNews-New-dark3.png')}}" alt="" class="img-fluid logo">

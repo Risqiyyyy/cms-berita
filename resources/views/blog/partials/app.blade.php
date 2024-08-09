@@ -85,7 +85,29 @@
             .embed-container {
                 display: none;
             }
+            .footer-bottom-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .image-logo {
+                order: 1;
+            }
+
+            .tentang-kami-mobile {
+                order: 2;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .tentang-kami-mobile h3, 
+            .tentang-kami-mobile p {
+                text-align: center;
+            }
+            
         }
+        
     </style>
 </head>
 <body>

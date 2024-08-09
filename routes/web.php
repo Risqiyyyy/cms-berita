@@ -38,12 +38,12 @@ require __DIR__ . '/auth.php';
 
 
     // About routes
-    Route::get('/redaksi', [AboutController::class, 'index'])->name('about.redaksi');
-    Route::get('/pedoman-media-siber', [AboutController::class, 'pedomansiber'])->name('about.pedoman-siber');
-    Route::get('/standar-perlindungan-profesi-wartawan', [AboutController::class, 'standar_perlindungan'])->name('about.standar_perlindungan');
-    Route::get('/kode-etik-jurnalistik', [AboutController::class, 'etik_jurnalistik'])->name('about.etik_jurnalistik');
-    Route::get('/kode-etik-jurnalistik2', [AboutController::class, 'etik_jurnalistik2'])->name('about.etik_jurnalistik2');
-    Route::get('/kode-etik_jurnalistik3', [AboutController::class, 'etik_jurnalistik3'])->name('about.etik_jurnalistik3');
+    Route::get('/home/redaksi', [AboutController::class, 'index'])->name('about.redaksi');
+    Route::get('/home//pedoman-media-siber', [AboutController::class, 'pedomansiber'])->name('about.pedoman-siber');
+    Route::get('/home//standar-perlindungan-profesi-wartawan', [AboutController::class, 'standar_perlindungan'])->name('about.standar_perlindungan');
+    Route::get('/home//kode-etik-jurnalistik', [AboutController::class, 'etik_jurnalistik'])->name('about.etik_jurnalistik');
+    Route::get('/home//kode-etik-jurnalistik2', [AboutController::class, 'etik_jurnalistik2'])->name('about.etik_jurnalistik2');
+    Route::get('/home//kode-etik_jurnalistik3', [AboutController::class, 'etik_jurnalistik3'])->name('about.etik_jurnalistik3');
 
 
     

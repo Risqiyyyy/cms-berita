@@ -7,14 +7,6 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="widget__footer">
-                                {{-- <div class="dropdown-footer ">
-                                    <h4 class="footer-title">
-                                        world
-                                        <span class="fa fa-angle-down"></span>
-                                    </h4>
-
-                                </div> --}}
-
                                 <ul class="list-unstyled option-content is-hidden">
                                     <h3 class="text-white">Tentang Kami</h3>
                                     <p class="text-white mb-3">Merupakan media siber yang mengedepankan akurasi.

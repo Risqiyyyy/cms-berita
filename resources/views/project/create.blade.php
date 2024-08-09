@@ -247,7 +247,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     var quill = new Quill('#snow-editor', {
         theme: 'snow'
     });
@@ -257,20 +257,25 @@
         console.log(editorContent);
         document.getElementById('editor-content').value = editorContent;
     });
-</script>
+</script> --}}
 @endsection
 
 @section('script')
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script>
-   var quill = new Quill('#snow-editor', {
+  var quill = new Quill('#snow-editor', {
             theme: 'snow',
             modules: {
                 toolbar: [
-                    [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['bold', 'italic', 'underline'],
-                    ['image', 'code-block']
+                    [{ 'font': [] }, { 'size': [] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'script': 'sub' }, { 'script': 'super' }],
+                    [{ 'header': 1 }, { 'header': 2 }, 'blockquote', 'code-block'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                    ['direction', { 'align': [] }],
+                    ['link', 'image', 'video'],
+                    ['clean']
                 ]
             }
         });
